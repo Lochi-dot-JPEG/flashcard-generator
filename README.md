@@ -20,7 +20,8 @@ Used to automate tediously creating flashcards for my obsidian vault.
 ## Roadmap
 
 - [x] Append flashcards to a note file
+- [x] Scan directory for the #needs-flashcards tag in the markdown frontmatter
+- [x] Loop through each file with the #needs-flashcard tag
 - [ ] Omit markdown frontmatter from the file given in the prompt
-- [ ] Scan directory for the #needs-flashcards tag in the markdown frontmatter
-- [ ] Loop through each file with the #needs-flashcard tag
+- [ ] Escape \ so it doesn't cause errors like with equations in the format $\ce{C_6H_12O_6 + 6O_2 -> 6CO_2 + 6H_2O + 38 ATP}$
 

@@ -23,11 +23,25 @@ End of content
 
 Do not include any other text or formatting in the response other than the flashcard text and errors in the flashcard content to be appended. Cover all vital content in the note."
 
-OUTPUT="
+NEW_PROMPT=$(echo "$PROMPT" | sed ':a;N;$!ba;s/\n/\\n/g' )
+
+INPUT="{ \"model\": \"$MODEL\", \"stream\": false, \"prompt\": \"$NEW_PROMPT\" }"
+
+echo "input is $INPUT"
+OUTPUT=$(
+curl http://localhost:11434/api/generate -d "$INPUT")
+
+echo "output is $OUTPUT"
+
+RESPONSE=$(echo $OUTPUT | jq -r '.response' | sed 's/\\n/\
+/g')
+
+echo "
 AI OUTPUT:
+## Flashcards
 
-$(ollama run "$MODEL" "$PROMPT")"
+$RESPONSE" >> $1
 
-echo $OUTPUT >> $1
+sed -i 's/needs-flashcards/unreviewed-flashcards/g' $1
 
 
